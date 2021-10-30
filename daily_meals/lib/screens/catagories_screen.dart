@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import './catagory_item.dart';
-import './dummy-data.dart';
+import '../widgets/catagory_item.dart';
+import '../dummy-data.dart';
 
 class CatagoriesScreen extends StatelessWidget {
+  static const routeName = '/catagory-meals';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
