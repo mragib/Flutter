@@ -6,6 +6,8 @@ import '../widgets/badge.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/app_drawer.dart';
 
+import '../providers/products_provider.dart';
+
 enum filterProduct { favorite, all }
 
 class ProductOverviewScreen extends StatefulWidget {
@@ -15,6 +17,27 @@ class ProductOverviewScreen extends StatefulWidget {
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   bool _isFavorite = false;
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      Provider.of<ProductsProvider>(context, listen: false)
+          .fatchAndSetData()
+          .then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +82,10 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           ],
         ),
         drawer: AppDrawer(),
-        body: ProductGrid(_isFavorite));
+        body: _isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ProductGrid(_isFavorite));
   }
 }

@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.purple,
           accentColor: Colors.deepOrange,
-          fontFamily: 'Lato',
+          fontFamily: "Lato",
         ),
         home: ProductOverviewScreen(),
         routes: {
